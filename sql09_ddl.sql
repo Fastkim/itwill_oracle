@@ -1,12 +1,14 @@
 /*
  * SQL 종류:
- * 1. DQL(Data Query Language): 데이터 질의 언어. select 문.
+ * 1. DQL(Data Query Language): 데이터 질의 언어. select 문장.
  * 2. DDL(Data Definition Language): 데이터 정의 언어.
  *    - create, alter, truncate, drop
  *    - 테이블, 사용자 계정을 생성, 변경, 삭제하는 SQL 문.
+ *    - 코드가 성공하면 자동 commit이 되므로 되돌릴수없음!
  * 3. DML(Data Manipulation Language): 데이터 조작 언어.
  *    - insert, update, delete
  *    - 테이블에 행(row)을 추가, 변경, 삭제하는 SQL 문장.
+ *    - rollback; 으로 되돌리기가 가능하다 자동commit(x)
  * 4. TCL(Transaction Control Language): 트랜잭션 관리(제어) 언어.
  *    -- commit(변경 내용을 DB에 영구 저장), rollback(직전 commit까지 상태로 되돌리기)
  */
@@ -27,6 +29,7 @@
  *     - sname: 학생 이름, 문자열(varchar2, 10 글자짜리 저장 가능한 문자열).
  *     - brithday: 생일. 날짜(date).
  */
+ 
  create table students (
     sid     number(4),
     sname   varchar2(10 char),
@@ -39,19 +42,25 @@
  
 /*
  * 테이블에 새로운 레코드(행 row)를 추가:
- * insert into 테이블 (컬럼, ...) values (값, ...);
+ * insert into 테이블 (컬럼, ...) 
+ * values (값, ...);
  * 
- * 테이블의 모든 컬럼에, 테이블 컬럼 순서대로 데이터를 추가하는 경우에는 컬럼 이름들을 생략할 수 있음.
- * insert into 테이블 values (값, ...);
- */ 
- 
+ */
+
 insert into students (sid, sname)
 values (1001, '김가영');
 
-select * from students;
-
+ 
+/* 테이블의 모든 컬럼에, 테이블 컬럼 순서대로 데이터를 추가하는 경우에는 컬럼 이름들을 생략할 수 있음.
+ * insert into 테이블 values (값, ...);
+ */ 
 insert into students
 values (1002, '김다훈', '2001/10/05');
+ 
+select * from students;
+ 
+ 
+-- 에러가 발생되는 경우
 
 insert into students values (1003, '오쌤');
 --> 에러 발생: 테이블의 컬럼 개수보다 적은 개수의 값을 전달했기 때문에.
