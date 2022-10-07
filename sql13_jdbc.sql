@@ -33,7 +33,11 @@ insert into BLOGS (TITLE, CONTENT, AUTHOR)
 values ('테스트', '새 블로그 작성 테스트', 'admin');
 
 insert into BLOGS (TITLE, CONTENT, AUTHOR)
-values ('테스트2', '새 블로그 작성 테스트', 'admin');
+values ('test', 'test', 'guest');
+
+
+
+
 
 
 -- 글번호 2번 글의 제목과 내용을 수정하고 수정 날짜 컬럼을 시스템 현재 시간으로 업데이트.
@@ -43,6 +47,6 @@ set TITLE = '배고파',
     MODIFIED_DATE = sysdate
 where BLOG_NO = 2;
 
-select * from BLOGS;
+select * from BLOGS order by BLOG_NO desc;
 
 commit;
